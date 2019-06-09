@@ -1,5 +1,5 @@
 import sys, pygame
-import stats, movement, classSelection, classImage, findImage
+import stats, classSelection, classImage, findImage
 
 playerClass=classSelection.classSelection() #Main Menu
 if playerClass==0:

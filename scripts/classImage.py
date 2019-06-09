@@ -67,12 +67,14 @@ def smallRightJumpDown(player,playerRect,left,backGround):
 	return playerRect
 
 def rightJump(player,playerRect,left,backGround):
-	playerRect=smallRightJumpUp(player,playerRect,left,backGround)
-	playerRect=smallRightJumpUp(player,playerRect,left,backGround)
-	playerRect=smallRightJumpUp(player,playerRect,left,backGround)
-	playerRect=smallRightJumpDown(player,playerRect,left,backGround)
-	playerRect=smallRightJumpDown(player,playerRect,left,backGround)
-	playerRect=smallRightJumpDown(player,playerRect,left,backGround)
+	x=0
+	while x<6:
+		playerRect=smallRightJumpUp(player, playerRect,left,backGround)
+		x=x+1
+	x=0
+	while x<6:
+		playerRect=smallRightJumpDown(player, playerRect,left,backGround)
+		x=x+1
 	pygame.time.delay(25)
 	return playerRect
 
@@ -95,32 +97,38 @@ def smallLeftJumpDown(player,playerRect,left,backGround):
 	return playerRect
 
 def leftJump(player,playerRect,left,backGround):
-	playerRect=smallLeftJumpUp(player,playerRect,left,backGround)
-	playerRect=smallLeftJumpUp(player,playerRect,left,backGround)
-	playerRect=smallLeftJumpUp(player,playerRect,left,backGround)
-	playerRect=smallLeftJumpDown(player,playerRect,left,backGround)
-	playerRect=smallLeftJumpDown(player,playerRect,left,backGround)
-	playerRect=smallLeftJumpDown(player,playerRect,left,backGround)
+	x=0
+	while x<6:
+		playerRect=smallLeftJumpUp(player, playerRect,left,backGround)
+		x=x+1
+	x=0
+	while x<6:
+		playerRect=smallLeftJumpDown(player, playerRect,left,backGround)
+		x=x+1
 	pygame.time.delay(25)
 	return playerRect
 	
-def jump(player,playerRect,left,backGround):
+def jumpUp(player, playerRect,left,backGround):
 	playerRect=[playerRect[0],playerRect[1]-10,playerRect[2],playerRect[3]]
 	writePlayer(player, playerRect,backGround)
 	pygame.time.delay(25)
-	playerRect=[playerRect[0],playerRect[1]-10,playerRect[2],playerRect[3]]
+	return playerRect
+
+def jumpDown(player, playerRect,left,backGround):
+	playerRect=[playerRect[0],playerRect[1]+10,playerRect[2],playerRect[3]]
 	writePlayer(player, playerRect,backGround)
 	pygame.time.delay(25)
-	playerRect=[playerRect[0],playerRect[1]-10,playerRect[2],playerRect[3]]
-	writePlayer(player, playerRect,backGround)
-	pygame.time.delay(25)
-	playerRect=[playerRect[0],playerRect[1]+15,playerRect[2],playerRect[3]]
-	writePlayer(player, playerRect,backGround)
-	pygame.time.delay(25)
-	playerRect=[playerRect[0],playerRect[1]+15,playerRect[2],playerRect[3]]
-	writePlayer(player, playerRect,backGround)
-	pygame.time.delay(50)
+	return playerRect	 
 	
+def jump(player,playerRect,left,backGround):
+	x=0
+	while x<6:
+		playerRect=jumpUp(player, playerRect,left,backGround)
+		x=x+1
+	x=0
+	while x<6:
+		playerRect=jumpDown(player, playerRect,left,backGround)
+		x=x+1
 
 def forward(player,playerRect,left):
 	if left is True:

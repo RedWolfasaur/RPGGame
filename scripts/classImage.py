@@ -1,7 +1,7 @@
 import sys,pygame,findImage
 pygame.init()
 screen = pygame.display.set_mode([800,600])
-
+clock = pygame.time.Clock()
 '''
 Functions that should be called:
 
@@ -49,84 +49,78 @@ All other Functions should not be called, for they are part of the callable scri
 
 '''
 def smallRightJumpUp(player,playerRect,left,backGround):
-	if playerRect[0]+5>=750:
-		playerRect=[750,playerRect[1]-10,playerRect[2],playerRect[3]]
+	if playerRect[0]+2.5>=750:
+		playerRect=[750,playerRect[1]-5,playerRect[2],playerRect[3]]
 	else:
-		playerRect=[playerRect[0]+5,playerRect[1]-10,playerRect[2],playerRect[3]]
+		playerRect=[playerRect[0]+2.5,playerRect[1]-5,playerRect[2],playerRect[3]]
 	writePlayer(player, playerRect,backGround)
-	pygame.time.delay(25)
 	return playerRect
 
 def smallRightJumpDown(player,playerRect,left,backGround):
-	if playerRect[0]+5>=750:
-		playerRect=[750,playerRect[1]+10,playerRect[2],playerRect[3]]
+	if playerRect[0]+2.5>=750:
+		playerRect=[750,playerRect[1]+5,playerRect[2],playerRect[3]]
 	else:
-		playerRect=[playerRect[0]+5,playerRect[1]+10,playerRect[2],playerRect[3]]
+		playerRect=[playerRect[0]+2.5,playerRect[1]+5,playerRect[2],playerRect[3]]
 	writePlayer(player, playerRect,backGround)
-	pygame.time.delay(25)
 	return playerRect
 
 def rightJump(player,playerRect,left,backGround):
 	x=0
-	while x<6:
+	while x<12:
 		playerRect=smallRightJumpUp(player, playerRect,left,backGround)
 		x=x+1
 	x=0
-	while x<6:
+	while x<12:
 		playerRect=smallRightJumpDown(player, playerRect,left,backGround)
 		x=x+1
-	pygame.time.delay(25)
+	pygame.time.delay(2)
 	return playerRect
 
 def smallLeftJumpUp(player,playerRect,left,backGround):
-	if playerRect[0]-5<=0:
-		playerRect=[0,playerRect[1]-10,playerRect[2],playerRect[3]]
+	if playerRect[0]-2.5<=0:
+		playerRect=[0,playerRect[1]-5,playerRect[2],playerRect[3]]
 	else:
-		playerRect=[playerRect[0]-5,playerRect[1]-10,playerRect[2],playerRect[3]]
+		playerRect=[playerRect[0]-2.5,playerRect[1]-5,playerRect[2],playerRect[3]]
 	writePlayer(player, playerRect,backGround)
-	pygame.time.delay(25)
 	return playerRect
 
 def smallLeftJumpDown(player,playerRect,left,backGround):
-	if playerRect[0]-5<=0:
-		playerRect=[0,playerRect[1]+10,playerRect[2],playerRect[3]]
+	if playerRect[0]-2.5<=0:
+		playerRect=[0,playerRect[1]+5,playerRect[2],playerRect[3]]
 	else:
-		playerRect=[playerRect[0]-5,playerRect[1]+10,playerRect[2],playerRect[3]]
+		playerRect=[playerRect[0]-2.5,playerRect[1]+5,playerRect[2],playerRect[3]]
 	writePlayer(player, playerRect,backGround)
-	pygame.time.delay(25)
 	return playerRect
 
 def leftJump(player,playerRect,left,backGround):
 	x=0
-	while x<6:
+	while x<12:
 		playerRect=smallLeftJumpUp(player, playerRect,left,backGround)
 		x=x+1
 	x=0
-	while x<6:
+	while x<12:
 		playerRect=smallLeftJumpDown(player, playerRect,left,backGround)
 		x=x+1
-	pygame.time.delay(25)
+	pygame.time.delay(2)
 	return playerRect
 	
 def jumpUp(player, playerRect,left,backGround):
-	playerRect=[playerRect[0],playerRect[1]-10,playerRect[2],playerRect[3]]
+	playerRect=[playerRect[0],playerRect[1]-5,playerRect[2],playerRect[3]]
 	writePlayer(player, playerRect,backGround)
-	pygame.time.delay(25)
 	return playerRect
 
 def jumpDown(player, playerRect,left,backGround):
-	playerRect=[playerRect[0],playerRect[1]+10,playerRect[2],playerRect[3]]
+	playerRect=[playerRect[0],playerRect[1]+5,playerRect[2],playerRect[3]]
 	writePlayer(player, playerRect,backGround)
-	pygame.time.delay(25)
 	return playerRect	 
 	
 def jump(player,playerRect,left,backGround):
 	x=0
-	while x<6:
+	while x<12:
 		playerRect=jumpUp(player, playerRect,left,backGround)
 		x=x+1
 	x=0
-	while x<6:
+	while x<12:
 		playerRect=jumpDown(player, playerRect,left,backGround)
 		x=x+1
 
@@ -134,18 +128,18 @@ def forward(player,playerRect,left):
 	if left is True:
 		player=pygame.transform.flip(player,1,0)
 		left=False
-	if playerRect[0]+1.5>=750:
+	if playerRect[0]+4.5>=750:
 		return player, [750,playerRect[1],playerRect[2],playerRect[3]], left
-	playerRect=[playerRect[0]+1.5,playerRect[1],playerRect[2],playerRect[3]]
+	playerRect=[playerRect[0]+4.5,playerRect[1],playerRect[2],playerRect[3]]
 	return player,playerRect,left
 
 def backward(player, playerRect,left):
 	if left is False:
 		player=pygame.transform.flip(player,1,0)
 		left=True
-	if playerRect[0]-1.25<=0:
+	if playerRect[0]-4.25<=0:
 		return player, [0,playerRect[1],playerRect[2],playerRect[3]], left
-	playerRect=[playerRect[0]-1.25,playerRect[1],playerRect[2],playerRect[3]]
+	playerRect=[playerRect[0]-4.25,playerRect[1],playerRect[2],playerRect[3]]
 	return player,playerRect,left
 
 def backGroundImage(backGround):
@@ -163,6 +157,7 @@ def writePlayer(player, playerRect,backGround,backGroundRect=[0,0,800,600]):
 
 def playerMovement(player,playerRect,backGround,left=False):
 	print(playerRect)
+	clock.tick(60)
 	writePlayer(player, playerRect,backGround)
 	pygame.event.pump()
 	k = pygame.key.get_pressed()

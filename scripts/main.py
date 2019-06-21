@@ -13,10 +13,20 @@ if playerClass==1:
 
 	
 	
-player,playerRect,left=classImage.getClassImage(playerClass)
-backGround=classImage.backGroundImage(findImage.getPygameImage('Images','dogger.gif'))
-
+player,playerRect,playerAttack,playerAttack2,left=classImage.getClassImage(playerClass)
+background=classImage.backGroundImage(findImage.getPygameImage('Images','FrontCastle.png'))
+attack=False
 
 
 while True:
-	player,playerRect,left=classImage.playerMovement(player,playerRect,backGround,left)
+	player,playerAttack,playerAttack2,playerRect,left,attack=classImage.playerMovement(player,playerAttack,playerAttack2,playerRect,background,left,attack)
+	if playerClass=='Knight':
+		if attack:
+			classImage.fullWrite(playerAttack,playerRect,background)
+		else:
+			classImage.fullWrite(player,playerRect,background)
+	else:
+		if attack:
+			classImage.archerAttack(playerAttack,playerAttack2,playerRect,background,left)
+		else:
+			classImage.fullWrite(player,playerRect,background)

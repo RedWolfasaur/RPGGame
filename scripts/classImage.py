@@ -49,19 +49,19 @@ All other Functions should not be called, for they are part of the callable scri
 
 '''
 def smallRightJumpUp(player,playerRect,left,backGround):
-	if playerRect[0]+2.5>=750:
-		playerRect=[750,playerRect[1]-5,playerRect[2],playerRect[3]]
+	if playerRect[0]+3>=750:
+		playerRect=[750,playerRect[1]-4,playerRect[2],playerRect[3]]
 	else:
-		playerRect=[playerRect[0]+2.5,playerRect[1]-5,playerRect[2],playerRect[3]]
-	writePlayer(player, playerRect,backGround)
+		playerRect=[playerRect[0]+3,playerRect[1]-4,playerRect[2],playerRect[3]]
+	fullWrite(player, playerRect,backGround)
 	return playerRect
 
 def smallRightJumpDown(player,playerRect,left,backGround):
-	if playerRect[0]+2.5>=750:
-		playerRect=[750,playerRect[1]+5,playerRect[2],playerRect[3]]
+	if playerRect[0]+3>=750:
+		playerRect=[750,playerRect[1]+4,playerRect[2],playerRect[3]]
 	else:
-		playerRect=[playerRect[0]+2.5,playerRect[1]+5,playerRect[2],playerRect[3]]
-	writePlayer(player, playerRect,backGround)
+		playerRect=[playerRect[0]+3,playerRect[1]+4,playerRect[2],playerRect[3]]
+	fullWrite(player, playerRect,backGround)
 	return playerRect
 
 def rightJump(player,playerRect,left,backGround):
@@ -77,19 +77,19 @@ def rightJump(player,playerRect,left,backGround):
 	return playerRect
 
 def smallLeftJumpUp(player,playerRect,left,backGround):
-	if playerRect[0]-2.5<=0:
-		playerRect=[0,playerRect[1]-5,playerRect[2],playerRect[3]]
+	if playerRect[0]-3<=0:
+		playerRect=[0,playerRect[1]-4,playerRect[2],playerRect[3]]
 	else:
-		playerRect=[playerRect[0]-2.5,playerRect[1]-5,playerRect[2],playerRect[3]]
-	writePlayer(player, playerRect,backGround)
+		playerRect=[playerRect[0]-3,playerRect[1]-4,playerRect[2],playerRect[3]]
+	fullWrite(player, playerRect,backGround)
 	return playerRect
 
 def smallLeftJumpDown(player,playerRect,left,backGround):
-	if playerRect[0]-2.5<=0:
-		playerRect=[0,playerRect[1]+5,playerRect[2],playerRect[3]]
+	if playerRect[0]-3<=0:
+		playerRect=[0,playerRect[1]+4,playerRect[2],playerRect[3]]
 	else:
-		playerRect=[playerRect[0]-2.5,playerRect[1]+5,playerRect[2],playerRect[3]]
-	writePlayer(player, playerRect,backGround)
+		playerRect=[playerRect[0]-3,playerRect[1]+4,playerRect[2],playerRect[3]]
+	fullWrite(player, playerRect,backGround)
 	return playerRect
 
 def leftJump(player,playerRect,left,backGround):
@@ -106,12 +106,12 @@ def leftJump(player,playerRect,left,backGround):
 	
 def jumpUp(player, playerRect,left,backGround):
 	playerRect=[playerRect[0],playerRect[1]-5,playerRect[2],playerRect[3]]
-	writePlayer(player, playerRect,backGround)
+	fullWrite(player, playerRect,backGround)
 	return playerRect
 
 def jumpDown(player, playerRect,left,backGround):
 	playerRect=[playerRect[0],playerRect[1]+5,playerRect[2],playerRect[3]]
-	writePlayer(player, playerRect,backGround)
+	fullWrite(player, playerRect,backGround)
 	return playerRect	 
 	
 def jump(player,playerRect,left,backGround):
@@ -124,47 +124,63 @@ def jump(player,playerRect,left,backGround):
 		playerRect=jumpDown(player, playerRect,left,backGround)
 		x=x+1
 
-def forward(player,playerRect,left):
+def forward(player,playerAttack,playerAttack2,playerRect,left):
 	if left is True:
 		player=pygame.transform.flip(player,1,0)
+		playerAttack=pygame.transform.flip(playerAttack,1,0)
+		playerAttack2=pygame.transform.flip(playerAttack2,1,0)
 		left=False
 	if playerRect[0]+4.5>=750:
-		return player, [750,playerRect[1],playerRect[2],playerRect[3]], left
+		return player,playerAttack, [750,playerRect[1],playerRect[2],playerRect[3]], left
 	playerRect=[playerRect[0]+4.5,playerRect[1],playerRect[2],playerRect[3]]
-	return player,playerRect,left
+	return player,playerAttack,playerAttack2,playerRect,left
 
-def backward(player, playerRect,left):
+def backward(player,playerAttack,playerAttack2, playerRect,left):
 	if left is False:
 		player=pygame.transform.flip(player,1,0)
+		playerAttack=pygame.transform.flip(playerAttack,1,0)
+		playerAttack2=pygame.transform.flip(playerAttack2,1,0)
 		left=True
 	if playerRect[0]-4.25<=0:
-		return player, [0,playerRect[1],playerRect[2],playerRect[3]], left
+		return player,playerAttack, [0,playerRect[1],playerRect[2],playerRect[3]], left
 	playerRect=[playerRect[0]-4.25,playerRect[1],playerRect[2],playerRect[3]]
-	return player,playerRect,left
+	return player,playerAttack,playerAttack2,playerRect,left
 
 def backGroundImage(backGround):
 	backGround=pygame.transform.scale(backGround,(800,600))
 	return backGround
 
-def writePlayer(player, playerRect,backGround,backGroundRect=[0,0,800,600]):
+def writeBackground(backGround,backGroundRect=[0,0,800,600]):
 	screen.fill((252,252,252))
 	if backGround==None:
 		pass
 	else:
 		screen.blit(backGround,backGroundRect)
+
+def writePlayer(player, playerRect):
 	screen.blit(player, playerRect)
 	pygame.display.flip()
 
-def playerMovement(player,playerRect,backGround,left=False):
+def fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],extra=False):
+	writeBackground(backGround,backGroundRect=[0,0,800,600])
+	if extra is not False:
+		screen.blit(extra[0],extra[1])
+	'''
+	NPC Writes go between here
+	'''
+	writePlayer(player, playerRect)
+	
+def playerMovement(player,playerAttack,playerAttack2,playerRect,backGround,left=False,attack=False):
 	print(playerRect)
 	clock.tick(60)
-	writePlayer(player, playerRect,backGround)
+	if attack:
+		attack=False
 	pygame.event.pump()
 	k = pygame.key.get_pressed()
 	if k[pygame.K_d]:
-		player,playerRect,left=forward(player,playerRect,left)
+		player,playerAttack,playerAttack2,playerRect,left=forward(player,playerAttack,playerAttack2,playerRect,left)
 	if k[pygame.K_a]:
-		player,playerRect,left=backward(player,playerRect,left)
+		player,playerAttack,playerAttack2,playerRect,left=backward(player,playerAttack,playerAttack2,playerRect,left)
 	if k[pygame.K_w]:
 		if k[pygame.K_d]:
 			playerRect=rightJump(player,playerRect,left,backGround)
@@ -172,15 +188,63 @@ def playerMovement(player,playerRect,backGround,left=False):
 			playerRect=leftJump(player,playerRect,left,backGround)
 		else:
 			jump(player,playerRect,left,backGround)
-	return player,playerRect,left
+	if k[pygame.K_SPACE]:
+			attack=True
+	
+	return player,playerAttack,playerAttack2,playerRect,left,attack
+
+def archerAttack(playerAttack,playerAttack2,playerRect,backGround,left,backGroundRect=[0,0,800,600]):
+	fullWrite(playerAttack, playerRect,backGround)
+	pygame.time.delay(1000)
+	fullWrite(playerAttack2, playerRect,backGround)
+	pygame.time.delay(1000)
+	x=0
+	arrowRect=playerRect
+	arrow=findImage.getPygameImage('Images','arrow.png')
+	if left:
+		arrow=pygame.transform.flip(arrow,1,0)
+		while True:
+			fullWrite(playerAttack, playerRect,backGround,extra=[arrow,arrowRect])
+			arrowRect,x=arrowFlyLeft(arrowRect,x)
+			if x==60:
+				break
+	else:
+		arrowRect=[arrowRect[0]+10,arrowRect[1],arrowRect[2],arrowRect[3]]
+		while True:
+			fullWrite(playerAttack, playerRect,backGround,extra=[arrow,arrowRect])
+			arrowRect,x=arrowFlyRight(arrowRect,x)
+			if x==60:
+				break
+	fullWrite(playerAttack, playerRect,backGround)
+
+def arrowFlyLeft(arrowRect,x):
+	x=x+1
+	arrowRect=[arrowRect[0]-2,arrowRect[1],arrowRect[2],arrowRect[3]]
+	return arrowRect,x
+	
+def arrowFlyRight(arrowRect,x):
+	x=x+1
+	arrowRect=[arrowRect[0]+2,arrowRect[1],arrowRect[2],arrowRect[3]]
+	return arrowRect,x
+	
+def collisionCheckRect(player,checkRect):
+	if checkRect.contains(player.get_rect()):
+		return True
+	return False
 	
 def getClassImage(playerClass):
 	if playerClass=='Knight':
 		player=findImage.getPygameImage('Images','Knight.png')
+		playerAttack=findImage.getPygameImage('Images','KnightAttack.png')
+		playerAttack2=playerAttack
 	else:
 		player=findImage.getPygameImage('Images','Archer.png')
-	player=pygame.transform.scale(player, (50,75))
+		playerAttack=findImage.getPygameImage('Images','Archer-1.png')
+		playerAttack2=findImage.getPygameImage('Images','Archer-2.png')
+	player=pygame.transform.scale(player, (75,75))
+	playerAttack=pygame.transform.scale(playerAttack, (75,75))
+	playerAttack2=pygame.transform.scale(playerAttack2, (75,75))
 	playerRect = player.get_rect()
 	playerRect=[playerRect[0],600-(player.get_height()),playerRect[2],playerRect[3]]
-	return player, playerRect, False
+	return player, playerRect,playerAttack,playerAttack2, False
 

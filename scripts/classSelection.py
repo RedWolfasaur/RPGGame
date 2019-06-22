@@ -19,7 +19,7 @@ All others should not be called
 import sys, pygame
 pygame.init()
 screen = pygame.display.set_mode([800,600])
-TNR = pygame.font.SysFont('Times New Roman', 30)
+TNR = pygame.font.Font('8bitOperatorPlus-Regular.ttf', 30)
 
 #location [x,y,width,height] 
 def border(color,location):
@@ -39,16 +39,18 @@ def startingPage(class1=(0,0,0),class2=(0,0,0)):
 	textWidth=(textWrite('Choose your class.',(400,100)))/2
 	screen.fill((252,252,252))
 	textWrite('Choose your class.',(400-textWidth,50))
-	border(class1,[25,100,350,200])
+	border(class1,[25,100,350,230])
 	textHeight=textWrite('Class One: Knight',(35,110),1)
 	textHeight=textWrite('Attack: 10',(35,textHeight+110),1)
-	textWrite('Defense: 10',(35,(21*2)+110),1)
-	textWrite('Item: Sword (+5 Attack)',(35,(21*3)+110))
-	border(class2,[425,100,350,200])
+	textWrite('Defense: 10',(35,(42*2)+110),1)
+	textWrite('Item:',(35,(42*3)+110))
+	textWrite('  Sword (+5 Attack)',(35,(42*4)+110))
+	border(class2,[425,100,350,230])
 	textWrite('Class Two: Archer',(435,110))
-	textHeight=textWrite('Attack: 10',(435,(21*1)+110),1)
-	textHeight=textWrite('Defense: 5',(435,(21*2)+110),1)
-	textHeight=textWrite('Item: Bow (+5 Attack)',(435,(21*3)+110),1)
+	textWrite('Attack: 10',(435,(42*1)+110),1)
+	textWrite('Defense: 5',(435,(42*2)+110),1)
+	textWrite('Item:',(435,(42*3)+110),1)
+	textWrite('  Bow (+5 Attack)',(435,(42*4)+110),1)
 	pygame.display.flip()	
 
 def classSelection():

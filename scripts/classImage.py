@@ -18,7 +18,7 @@ classImage.playerMovement(player,playerRect,background, left=False)
 		playerRect - The Pygame Rect belonging to the Image
 		left - A Bool indicating whether the image is facing left
 
-classImage.writePlayer(player, playerRect,backGround,backGroundRect=[0,0,800,600])
+classImage.fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],extra=False,extra2=False,extra3=False,extra4=False):
     writePlayer(player, playerRect)
     Writes a player to the screen,
 	inputs:
@@ -26,6 +26,7 @@ classImage.writePlayer(player, playerRect,backGround,backGroundRect=[0,0,800,600
 		player location - A Pygame Rect Object
 		Background - A Pygame Image
 		BackgroundRect - A Pygame Rect
+		extra - List [(Pygame Image), (Pygame Rect)]
    
 classImage.getClassImage(playerClass)
 	getClassImage(playerClass)
@@ -159,16 +160,24 @@ def writeBackground(backGround,backGroundRect=[0,0,800,600]):
 
 def writePlayer(player, playerRect):
 	screen.blit(player, playerRect)
-	pygame.display.flip()
 
-def fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],extra=False):
+def fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],arrow=False,extra=False,extra2=False,extra3=False):
 	writeBackground(backGround,backGroundRect=[0,0,800,600])
+	if arrow is not False:
+		screen.blit(arrow[0],arrow[1])
 	if extra is not False:
 		screen.blit(extra[0],extra[1])
+	if extra2 is not False:
+		screen.blit(extra2[0],extra2[1])
+	if extra3 is not False:
+		screen.blit(extra3[0],extra3[1])
+		
 	'''
 	NPC Writes go between here
 	'''
 	writePlayer(player, playerRect)
+	pygame.display.flip()
+	
 	
 def playerMovement(player,playerAttack,playerAttack2,playerRect,backGround,left=False,attack=False):
 	print(playerRect)
@@ -204,29 +213,29 @@ def archerAttack(playerAttack,playerAttack2,playerRect,backGround,left,backGroun
 	if left:
 		arrow=pygame.transform.flip(arrow,1,0)
 		while True:
-			fullWrite(playerAttack, playerRect,backGround,extra=[arrow,arrowRect])
+			fullWrite(playerAttack, playerRect,backGround,arrow=[arrow,arrowRect])
 			arrowRect,x=arrowFlyLeft(arrowRect,x)
 			if x==60:
 				break
 	else:
 		arrowRect=[arrowRect[0]+10,arrowRect[1],arrowRect[2],arrowRect[3]]
 		while True:
-			fullWrite(playerAttack, playerRect,backGround,extra=[arrow,arrowRect])
+			fullWrite(playerAttack, playerRect,backGround,arrow=[arrow,arrowRect])
 			arrowRect,x=arrowFlyRight(arrowRect,x)
-			if x==60:
+			if x>=40:
 				break
 	fullWrite(playerAttack, playerRect,backGround)
 
 def arrowFlyLeft(arrowRect,x):
 	x=x+1
-	arrowRect=[arrowRect[0]-2,arrowRect[1],arrowRect[2],arrowRect[3]]
+	arrowRect=[arrowRect[0]-4,arrowRect[1],arrowRect[2],arrowRect[3]]
 	return arrowRect,x
 	
 def arrowFlyRight(arrowRect,x):
 	x=x+1
-	arrowRect=[arrowRect[0]+2,arrowRect[1],arrowRect[2],arrowRect[3]]
+	arrowRect=[arrowRect[0]+4,arrowRect[1],arrowRect[2],arrowRect[3]]
 	return arrowRect,x
-	
+		
 def collisionCheckRect(player,checkRect):
 	if checkRect.contains(player.get_rect()):
 		return True

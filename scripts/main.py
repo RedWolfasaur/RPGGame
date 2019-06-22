@@ -1,5 +1,5 @@
 import sys, pygame
-import stats, classSelection, classImage, findImage
+import stats, classSelection, classImage, findImage, enemy
 
 playerClass=classSelection.classSelection() #Main Menu
 if playerClass==0:
@@ -12,19 +12,25 @@ if playerClass==1:
 
 
 	
-	
+
 player,playerRect,playerAttack,playerAttack2,left=classImage.getClassImage(playerClass)
 background=classImage.backGroundImage(findImage.getPygameImage('Images','FrontCastle.png'))
 attack=False
 
-
+#Beginning area
+NPCEnemy,NPCEnemyStats,NPCEnemyRect=enemy.randomSpawn([400,600],playerStat)
+NPCEnemyRect=[NPCEnemyRect,600-NPCEnemy.get_width(),NPCEnemy.get_rect()[2],NPCEnemy.get_rect()[3]]
+print(NPCEnemyRect)
 while True:
 	player,playerAttack,playerAttack2,playerRect,left,attack=classImage.playerMovement(player,playerAttack,playerAttack2,playerRect,background,left,attack)
+	
+	
 	if playerClass=='Knight':
 		if attack:
 			classImage.fullWrite(playerAttack,playerRect,background)
+			classImage.collisionCheckRect(playerAttack,playerAttack.get_rect())
 		else:
-			classImage.fullWrite(player,playerRect,background)
+			classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
 	else:
 		if attack:
 			classImage.archerAttack(playerAttack,playerAttack2,playerRect,background,left)

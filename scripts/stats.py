@@ -25,3 +25,4 @@ def player(stats):
 	defense=stats[6]
 	speed=stats[7]
 	level=stats[8]
+	

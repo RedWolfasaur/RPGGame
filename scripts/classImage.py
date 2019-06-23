@@ -199,6 +199,9 @@ def playerMovement(player,playerAttack,playerAttack2,playerRect,backGround,left=
 			jump(player,playerRect,left,backGround)
 	if k[pygame.K_SPACE]:
 			attack=True
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			sys.exit()
 	return player,playerAttack,playerAttack2,playerRect,left,attack
 
 def archerAttack(playerAttack,playerAttack2,playerRect,backGround,left,backGroundRect=[0,0,800,600]):

@@ -17,6 +17,24 @@ clock = pygame.time.Clock()
 
 
 '''
+
+def randomMovement(enemyRect):
+	movement=random.randint(0,100)
+	if movement<21:
+		if enemyRect[0]-8<=350:
+			pass
+		else:
+			enemyRect=[enemyRect[0]-4,enemyRect[1],enemyRect[2],enemyRect[3]]
+	elif movement>79:
+		if enemyRect[0]+8>=550:
+			pass
+		else:
+			enemyRect=[enemyRect[0]+4,enemyRect[1],enemyRect[2],enemyRect[3]]
+		
+	else:
+		pass
+	return enemyRect
+
 def randomSpawn(spawnLocation,playerStats):
 	playerLevel=playerStats[6]
 	maxHealth=10*playerLevel

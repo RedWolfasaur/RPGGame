@@ -237,7 +237,7 @@ def arrowFlyRight(arrowRect,x):
 	return arrowRect,x
 		
 def collisionCheckRect(player,checkRect):
-	if checkRect.contains(player.get_rect()):
+	if pygame.Rect(checkRect).colliderect(pygame.Rect(player)):
 		return True
 	return False
 	
@@ -254,6 +254,6 @@ def getClassImage(playerClass):
 	playerAttack=pygame.transform.scale(playerAttack, (75,75))
 	playerAttack2=pygame.transform.scale(playerAttack2, (75,75))
 	playerRect = player.get_rect()
-	playerRect=[playerRect[0],600-(player.get_height()),playerRect[2],playerRect[3]]
+	playerRect=[playerRect[0],600-(player.get_height()),playerRect[2]-20,playerRect[3]]
 	return player, playerRect,playerAttack,playerAttack2, False
 

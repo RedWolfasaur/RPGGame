@@ -20,15 +20,18 @@ attack=False
 #Beginning area
 NPCEnemy,NPCEnemyStats,NPCEnemyRect=enemy.randomSpawn([400,600],playerStat)
 NPCEnemyRect=[NPCEnemyRect,600-NPCEnemy.get_width(),NPCEnemy.get_rect()[2],NPCEnemy.get_rect()[3]]
-print(NPCEnemyRect)
+timeForNPCMovement=0
+
 while True:
 	player,playerAttack,playerAttack2,playerRect,left,attack=classImage.playerMovement(player,playerAttack,playerAttack2,playerRect,background,left,attack)
-	
-	
+	if timeForNPCMovement%60==0:
+		NPCEnemyRect=enemy.randomMovement(NPCEnemyRect)
+	timeForNPCMovement=timeForNPCMovement+1
+	print(timeForNPCMovement)
 	if playerClass=='Knight':
 		if attack:
-			classImage.fullWrite(playerAttack,playerRect,background)
-			classImage.collisionCheckRect(playerAttack,playerAttack.get_rect())
+			classImage.fullWrite(playerAttack,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
+			print(classImage.collisionCheckRect([playerRect[0],playerRect[1],playerRect[2]+20,playerRect[3]],NPCEnemyRect))
 		else:
 			classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
 	else:

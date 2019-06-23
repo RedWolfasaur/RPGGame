@@ -59,6 +59,7 @@ def classSelection():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				sys.exit()
+				
 			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				if (pygame.Rect([25,100,350,200])).collidepoint(pygame.mouse.get_pos()):
 					startingPage(class1=(255,69,0))

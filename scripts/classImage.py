@@ -49,80 +49,80 @@ classImage.backGroundImage(backGround=None)
 All other Functions should not be called, for they are part of the callable scripts.
 
 '''
-def smallRightJumpUp(player,playerRect,left,backGround):
+def smallRightJumpUp(player,playerRect,backGround,enemyPicture):
 	if playerRect[0]+3>=750:
 		playerRect=[750,playerRect[1]-4,playerRect[2],playerRect[3]]
 	else:
 		playerRect=[playerRect[0]+3,playerRect[1]-4,playerRect[2],playerRect[3]]
-	fullWrite(player, playerRect,backGround)
+	fullWrite(player, playerRect,backGround,extra=enemyPicture)
 	return playerRect
 
-def smallRightJumpDown(player,playerRect,left,backGround):
+def smallRightJumpDown(player,playerRect,backGround,enemyPicture):
 	if playerRect[0]+3>=750:
 		playerRect=[750,playerRect[1]+4,playerRect[2],playerRect[3]]
 	else:
 		playerRect=[playerRect[0]+3,playerRect[1]+4,playerRect[2],playerRect[3]]
-	fullWrite(player, playerRect,backGround)
+	fullWrite(player, playerRect,backGround,extra=enemyPicture)
 	return playerRect
 
-def rightJump(player,playerRect,left,backGround):
+def rightJump(player,playerRect,backGround,enemyPicture):
 	x=0
 	while x<12:
-		playerRect=smallRightJumpUp(player, playerRect,left,backGround)
+		playerRect=smallRightJumpUp(player, playerRect,backGround,enemyPicture)
 		x=x+1
 	x=0
 	while x<12:
-		playerRect=smallRightJumpDown(player, playerRect,left,backGround)
+		playerRect=smallRightJumpDown(player, playerRect,backGround,enemyPicture)
 		x=x+1
 	pygame.time.delay(2)
 	return playerRect
 
-def smallLeftJumpUp(player,playerRect,left,backGround):
+def smallLeftJumpUp(player,playerRect,backGround,enemyPicture):
 	if playerRect[0]-3<=0:
 		playerRect=[0,playerRect[1]-4,playerRect[2],playerRect[3]]
 	else:
 		playerRect=[playerRect[0]-3,playerRect[1]-4,playerRect[2],playerRect[3]]
-	fullWrite(player, playerRect,backGround)
+	fullWrite(player, playerRect,backGround,extra=enemyPicture)
 	return playerRect
 
-def smallLeftJumpDown(player,playerRect,left,backGround):
+def smallLeftJumpDown(player,playerRect,backGround,enemyPicture):
 	if playerRect[0]-3<=0:
 		playerRect=[0,playerRect[1]+4,playerRect[2],playerRect[3]]
 	else:
 		playerRect=[playerRect[0]-3,playerRect[1]+4,playerRect[2],playerRect[3]]
-	fullWrite(player, playerRect,backGround)
+	fullWrite(player, playerRect,backGround,extra=enemyPicture)
 	return playerRect
 
-def leftJump(player,playerRect,left,backGround):
+def leftJump(player,playerRect,backGround,enemyPicture):
 	x=0
 	while x<12:
-		playerRect=smallLeftJumpUp(player, playerRect,left,backGround)
+		playerRect=smallLeftJumpUp(player, playerRect,backGround,enemyPicture)
 		x=x+1
 	x=0
 	while x<12:
-		playerRect=smallLeftJumpDown(player, playerRect,left,backGround)
+		playerRect=smallLeftJumpDown(player, playerRect,backGround,enemyPicture)
 		x=x+1
 	pygame.time.delay(2)
 	return playerRect
 	
-def jumpUp(player, playerRect,left,backGround):
+def jumpUp(player, playerRect,backGround,enemyPicture):
 	playerRect=[playerRect[0],playerRect[1]-5,playerRect[2],playerRect[3]]
-	fullWrite(player, playerRect,backGround)
+	fullWrite(player, playerRect,backGround,extra=enemyPicture)
 	return playerRect
 
-def jumpDown(player, playerRect,left,backGround):
+def jumpDown(player, playerRect,backGround,enemyPicture):
 	playerRect=[playerRect[0],playerRect[1]+5,playerRect[2],playerRect[3]]
-	fullWrite(player, playerRect,backGround)
+	fullWrite(player, playerRect,backGround,extra=enemyPicture)
 	return playerRect	 
 	
-def jump(player,playerRect,left,backGround):
+def jump(player,playerRect,backGround,enemyPicture):
 	x=0
 	while x<12:
-		playerRect=jumpUp(player, playerRect,left,backGround)
+		playerRect=jumpUp(player, playerRect,backGround,enemyPicture)
 		x=x+1
 	x=0
 	while x<12:
-		playerRect=jumpDown(player, playerRect,left,backGround)
+		playerRect=jumpDown(player, playerRect,backGround,enemyPicture)
 		x=x+1
 
 def forward(player,playerAttack,playerAttack2,playerRect,left):
@@ -179,7 +179,7 @@ def fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],arrow=F
 	pygame.display.flip()
 	
 	
-def playerMovement(player,playerAttack,playerAttack2,playerRect,backGround,left=False,attack=False):
+def playerMovement(player,playerAttack,playerAttack2,playerRect,backGround,left=False,attack=False,enemyPicture=False):
 	print(playerRect)
 	clock.tick(60)
 	if attack:
@@ -192,16 +192,17 @@ def playerMovement(player,playerAttack,playerAttack2,playerRect,backGround,left=
 		player,playerAttack,playerAttack2,playerRect,left=backward(player,playerAttack,playerAttack2,playerRect,left)
 	if k[pygame.K_w]:
 		if k[pygame.K_d]:
-			playerRect=rightJump(player,playerRect,left,backGround)
+			playerRect=rightJump(player,playerRect,backGround,enemyPicture)
 		elif k[pygame.K_a]:
-			playerRect=leftJump(player,playerRect,left,backGround)
+			playerRect=leftJump(player,playerRect,backGround,enemyPicture)
 		else:
-			jump(player,playerRect,left,backGround)
+			jump(player,playerRect,backGround,enemyPicture)
 	if k[pygame.K_SPACE]:
 			attack=True
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			sys.exit()
+	
 	return player,playerAttack,playerAttack2,playerRect,left,attack
 
 def archerAttack(playerAttack,playerAttack2,playerRect,backGround,left,backGroundRect=[0,0,800,600]):

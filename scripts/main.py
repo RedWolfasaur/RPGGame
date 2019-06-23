@@ -23,7 +23,7 @@ NPCEnemyRect=[NPCEnemyRect,600-NPCEnemy.get_width(),NPCEnemy.get_rect()[2],NPCEn
 timeForNPCMovement=0
 
 while True:
-	player,playerAttack,playerAttack2,playerRect,left,attack=classImage.playerMovement(player,playerAttack,playerAttack2,playerRect,background,left,attack)
+	player,playerAttack,playerAttack2,playerRect,left,attack=classImage.playerMovement(player,playerAttack,playerAttack2,playerRect,background,left,attack,[NPCEnemy,NPCEnemyRect])
 	if timeForNPCMovement%60==0:
 		NPCEnemyRect=enemy.randomMovement(NPCEnemyRect)
 	timeForNPCMovement=timeForNPCMovement+1

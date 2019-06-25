@@ -30,7 +30,7 @@ def randomMovement(enemyRect):
 			pass
 		else:
 			enemyRect=[enemyRect[0]+4,enemyRect[1],enemyRect[2],enemyRect[3]]
-		
+
 	else:
 		pass
 	return enemyRect
@@ -44,7 +44,7 @@ def randomSpawn(spawnLocation,playerStats):
 	attack=6*playerLevel
 	defense=6*playerLevel
 	level=playerLevel
-	
+
 	enemyStats=[maxHealth,currentHealth,item,itemMod,attack,defense,level]
 	enemy=random.choice(['Slime.png','Spider.png'])
 	enemy=findImage.getPygameImage('Images',enemy)
@@ -60,7 +60,7 @@ def randomSlime(spawnLocation,playerStats):
 	attack=6*playerLevel
 	defense=6*playerLevel
 	level=playerLevel
-	
+
 	enemyStats=[maxHealth,currentHealth,item,itemMod,attack,defense,level]
 	enemy='Slime.png'
 	enemy=findImage.getPygameImage('Images',enemy)
@@ -76,7 +76,7 @@ def randomSpider(spawnLocation,playerStats):
 	attack=6*playerLevel
 	defense=6*playerLevel
 	level=playerLevel
-	
+
 	enemyStats=[maxHealth,currentHealth,item,itemMod,attack,defense,level]
 	enemy='Spider.png'
 	enemy=findImage.getPygameImage('Images',enemy)

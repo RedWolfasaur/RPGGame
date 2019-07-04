@@ -27,7 +27,7 @@ classImage.fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],
 		Background - A Pygame Image
 		BackgroundRect - A Pygame Rect
 		extra - List [(Pygame Image), (Pygame Rect)]
-   
+
 classImage.getClassImage(playerClass)
 	getClassImage(playerClass)
 	checks the class the player has chosen and returns the appropriate image.
@@ -160,6 +160,8 @@ def writeBackground(backGround,backGroundRect=[0,0,800,600]):
 
 def writePlayer(player, playerRect):
 	screen.blit(player, playerRect)
+	pygame.draw.rect(screen,(0,0,0),playerRect)
+	
 
 def fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],arrow=False,extra=False,extra2=False,extra3=False):
 	writeBackground(backGround,backGroundRect=[0,0,800,600])
@@ -167,6 +169,7 @@ def fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],arrow=F
 		screen.blit(arrow[0],arrow[1])
 	if extra is not False:
 		screen.blit(extra[0],extra[1])
+		#pygame.draw.rect(screen,(0,0,0),extra[1])
 	if extra2 is not False:
 		screen.blit(extra2[0],extra2[1])
 	if extra3 is not False:

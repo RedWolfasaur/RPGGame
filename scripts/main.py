@@ -21,21 +21,37 @@ attack=False
 NPCEnemy,NPCEnemyStats,NPCEnemyRect=enemy.randomSpawn([400,600],playerStat)
 timeForNPCMovement=0
 
-while True:
+while stats.healthCheck(playerStat):
 	player,playerAttack,playerAttack2,playerRect,left,attack=classImage.playerMovement(player,playerAttack,playerAttack2,playerRect,background,left,attack,[NPCEnemy,NPCEnemyRect])
 	
 	if timeForNPCMovement%60==0:
 		NPCEnemyRect=enemy.randomMovement(NPCEnemyRect)
 	timeForNPCMovement=timeForNPCMovement+1
-	print(timeForNPCMovement)
+	if stats.healthCheck(NPCEnemyStats):
+		pass
+	else:
+		NPCEnemy=False
+		NPCEnemyStats.append(False)
+		NPCEnemyRect=[0,0,0,0]
+		playerStat=stats.levelUp(playerStat)
+	
 	if playerClass=='Knight':
 		if attack:
 			classImage.fullWrite(playerAttack,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
-			print(classImage.collisionCheckRect([playerRect[0],playerRect[1],playerRect[2]+20,playerRect[3]],NPCEnemyRect))
+			if classImage.collisionCheckRect([playerRect[0],playerRect[1],playerRect[2],playerRect[3]],NPCEnemyRect):
+				NPCEnemyStats=stats.dealDamage(playerStat,NPCEnemyStats)
+				print(playerStat)
+				NPCEnemyRect=enemy.enemyKnockedback(player,playerRect,background,NPCEnemy,NPCEnemyRect)
 		else:
 			classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
-			print(classImage.collisionCheckRect([playerRect[0],playerRect[1],playerRect[2],playerRect[3]],NPCEnemyRect))
-			print(NPCEnemyRect)
+			if classImage.collisionCheckRect([playerRect[0],playerRect[1],playerRect[2],playerRect[3]],NPCEnemyRect):
+				playerStat=stats.dealDamage(NPCEnemyStats,playerStat)
+				print(playerStat)
+				playerRect=enemy.playerKnockback(player,playerRect,background,NPCEnemy,NPCEnemyRect)
+				
+				
+				
+				
 	else:
 		if attack:
 			classImage.archerAttack(playerAttack,playerAttack2,playerRect,background,left)

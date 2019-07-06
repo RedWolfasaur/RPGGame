@@ -132,7 +132,7 @@ def forward(player,playerAttack,playerAttack2,playerRect,left):
 		playerAttack2=pygame.transform.flip(playerAttack2,1,0)
 		left=False
 	if playerRect[0]+4.5>=750:
-		return player,playerAttack, [750,playerRect[1],playerRect[2],playerRect[3]], left
+		return player,playerAttack, playerAttack2, [750,playerRect[1],playerRect[2],playerRect[3]], left
 	playerRect=[playerRect[0]+4.5,playerRect[1],playerRect[2],playerRect[3]]
 	return player,playerAttack,playerAttack2,playerRect,left
 
@@ -143,7 +143,7 @@ def backward(player,playerAttack,playerAttack2, playerRect,left):
 		playerAttack2=pygame.transform.flip(playerAttack2,1,0)
 		left=True
 	if playerRect[0]-4.25<=0:
-		return player,playerAttack, [0,playerRect[1],playerRect[2],playerRect[3]], left
+		return player,playerAttack, playerAttack2, [0,playerRect[1],playerRect[2],playerRect[3]], left
 	playerRect=[playerRect[0]-4.25,playerRect[1],playerRect[2],playerRect[3]]
 	return player,playerAttack,playerAttack2,playerRect,left
 
@@ -160,7 +160,7 @@ def writeBackground(backGround,backGroundRect=[0,0,800,600]):
 
 def writePlayer(player, playerRect):
 	screen.blit(player, playerRect)
-	pygame.draw.rect(screen,(0,0,0),playerRect)
+	#pygame.draw.rect(screen,(0,0,0),playerRect)
 	
 
 def fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],arrow=False,extra=False,extra2=False,extra3=False):
@@ -168,20 +168,28 @@ def fullWrite(player, playerRect,backGround,backGroundRect=[0,0,800,600],arrow=F
 	if arrow is not False:
 		screen.blit(arrow[0],arrow[1])
 	if extra is not False:
-		screen.blit(extra[0],extra[1])
+		if extra[0] is False:
+			pass
+		else:
+			screen.blit(extra[0],extra[1])
 		#pygame.draw.rect(screen,(0,0,0),extra[1])
 	if extra2 is not False:
-		screen.blit(extra2[0],extra2[1])
+		if extra2[0] is False:
+			pass
+		else:
+			screen.blit(extra2[0],extra2[1])
 	if extra3 is not False:
-		screen.blit(extra3[0],extra3[1])
+		if extra3[0] is False:
+			pass
+		else:
+			screen.blit(extra3[0],extra3[1])
 		
 	'''
 	NPC Writes go between here
 	'''
 	writePlayer(player, playerRect)
 	pygame.display.flip()
-	
-	
+		
 def playerMovement(player,playerAttack,playerAttack2,playerRect,backGround,left=False,attack=False,enemyPicture=False):
 	print(playerRect)
 	clock.tick(60)

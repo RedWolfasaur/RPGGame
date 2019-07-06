@@ -1,5 +1,5 @@
 import pygame
-import findImage,random
+import findImage,random,classImage
 
 
 pygame.init()
@@ -39,7 +39,7 @@ def randomSpawn(spawnLocation,playerStats):
 	playerLevel=playerStats[6]
 	maxHealth=10*playerLevel
 	currentHealth=10*playerLevel
-	item='Sword'
+	item='Slime'
 	itemMod='A'+str(2*playerLevel)
 	attack=6*playerLevel
 	defense=6*playerLevel
@@ -62,7 +62,7 @@ def randomSlime(spawnLocation,playerStats):
 	playerLevel=stats[8]
 	maxHealth=10*playerLevel
 	currentHealth=10*playerLevel
-	item='Sword'
+	item='Web'
 	itemMod='A'+str(2*playerLevel)
 	attack=6*playerLevel
 	defense=6*playerLevel
@@ -89,4 +89,42 @@ def randomSpider(spawnLocation,playerStats):
 	enemy='Spider.png'
 	enemy=findImage.getPygameImage('Images',enemy)
 	location=random.randint(spawnLocation[0],spawnLocation[1])
-	return enemy,enemyStats,location
+	return enemy,enemyStats,location	
+
+def enemyKnockedback(player,playerRect,background,NPCEnemy,NPCEnemyRect):
+	print((800-NPCEnemy.get_width())+3)
+	if (NPCEnemyRect[0]+NPCEnemy.get_width())+3>800:
+		NPCEnemyRect=[800-NPCEnemy.get_width(),NPCEnemyRect[1]-2,NPCEnemyRect[2],NPCEnemyRect[3]]
+	else:
+		NPCEnemyRect=[NPCEnemyRect[0]+3,NPCEnemyRect[1]-2,NPCEnemyRect[2],NPCEnemyRect[3]]
+	classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
+	
+	if (NPCEnemyRect[0]+NPCEnemy.get_width())+4>800:
+		NPCEnemyRect=[800-NPCEnemy.get_width(),NPCEnemyRect[1]-3,NPCEnemyRect[2],NPCEnemyRect[3]]
+	else:
+		NPCEnemyRect=[NPCEnemyRect[0]+4,NPCEnemyRect[1]-3,NPCEnemyRect[2],NPCEnemyRect[3]]
+	classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
+	
+	if (NPCEnemyRect[0]+NPCEnemy.get_width())+4>800:
+		NPCEnemyRect=[800-NPCEnemy.get_width(),NPCEnemyRect[1]+3,NPCEnemyRect[2],NPCEnemyRect[3]]
+	else:
+		NPCEnemyRect=[NPCEnemyRect[0]+4,NPCEnemyRect[1]+3,NPCEnemyRect[2],NPCEnemyRect[3]]
+	classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
+	
+	if (NPCEnemyRect[0]+NPCEnemy.get_width())+3>800:
+		NPCEnemyRect=[800-NPCEnemy.get_width(),NPCEnemyRect[1]+2,NPCEnemyRect[2],NPCEnemyRect[3]]
+	else:
+		NPCEnemyRect=[NPCEnemyRect[0]+3,NPCEnemyRect[1]+2,NPCEnemyRect[2],NPCEnemyRect[3]]
+	classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
+	return NPCEnemyRect
+	
+def playerKnockback(player,playerRect,background,NPCEnemy,NPCEnemyRect):
+	playerRect=[playerRect[0]-3,playerRect[1]-2,playerRect[2],playerRect[3]]
+	classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
+	playerRect=[playerRect[0]-4,playerRect[1]-3,playerRect[2],playerRect[3]]
+	classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
+	playerRect=[playerRect[0]-4,playerRect[1]+3,playerRect[2],playerRect[3]]
+	classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
+	playerRect=[playerRect[0]-3,playerRect[1]+2,playerRect[2],playerRect[3]]
+	classImage.fullWrite(player,playerRect,background,extra=[NPCEnemy,NPCEnemyRect])
+	return playerRect

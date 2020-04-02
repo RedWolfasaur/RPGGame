@@ -58,9 +58,15 @@ class player(pygame.sprite.Sprite):
         def __init__(self):
                 pygame.sprite.Sprite.__init__(self)
                 self.image = image.player
-                self.image.set_colorkey((0,0,0))
+                self.playerx = 10
+                self.playery = 600-self.image.get_height()
                 self.rect = self.image.get_rect()
-                self.rect.center = (self.image.get_size()[0] / 2, self.image.get_size()[1] / 2)
+                print(self.image.get_rect())
+                self.rect.topleft = [self.playerx,self.playery]
+                
+        def update(self):
+                self.rect.topleft = [self.playerx,self.playery]
+				
                 
 
 screen = pygame.display.set_mode([800,600])
@@ -73,10 +79,14 @@ all_sprites.add(player)
 running=True
 while running:
         all_sprites.draw(screen)
+        screen.blit(player.image,player.rect)
         pygame.display.flip()
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                      running = False
+                        running = False
+                        
 
-
+print('why')
+pygame.display.quit()
 pygame.quit()
+sys.quit(1)
